@@ -30,4 +30,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 alias vim="mvim -v"
+alias gdm="git diff | more"
+alias vimrc="vim ~/.vimrc"
+alias zshrc="vim ~/.zshrc"
 export ARCHFLAGS="-arch i386 –arch x86_64"

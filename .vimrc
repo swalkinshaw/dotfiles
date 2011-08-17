@@ -50,9 +50,9 @@ let mapleader = ","
 " Easy command mode switch
 inoremap jj <Esc>
 
-nnoremap <F2> :set invpaste paste?<CR>
-imap <F2> <C-O>:set invpaste paste?<CR>
-set pastetoggle=<F2>
+" Paste toggle (,p)
+set pastetoggle=<leader>p
+map <leader>p :set invpaste paste?<CR>
 
 " Fix backspace key in xterm
 " inoremap <BS>
@@ -74,6 +74,23 @@ noremap <BS> <<
 " Move easily between ^ and $
 noremap <C-h> ^
 noremap <C-l> $
+
+nnoremap Y y$
+nnoremap D d$
+
+" Keep search matches in the middle of the window.
+nnoremap * *zzzv
+nnoremap # #zzzv
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+
+" It's 2011.
+noremap j gj
+noremap k gk
 
 " After copying a visual block, keep cursor at end of block for easy pasting
 vnoremap y y`>
@@ -155,6 +172,7 @@ colorscheme desert
 syntax enable
 
 au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
+au BufRead,BufNewFile *.json set ft=json syntax=javascript
 au BufRead,BufNewFile *.html.twig set ft=htmldjango
 " automatically jump to last known position in a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -162,5 +180,53 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 map <Leader>n :NERDTreeToggle<CR>
 map <Leader>c :CommandT<CR>
 
+" Command-T
+let g:CommandTMaxFiles=20000
+let g:CommandTMatchWindowAtTop=1
+let g:CommandTMaxHeight=12
+let g:CommandTCancelMap=['<Esc>', '<C-c>']
+
 " Remove search highlighting
 nnoremap <Leader><Space> :noh<CR>
+
+" Sudo write (,W)
+noremap <leader>W :w !sudo tee %<CR>
+
+" Remap :W to :w
+command W w
+
+" Indent/unident block (,]) (,[)
+nnoremap <leader>] >i{<CR>
+nnoremap <leader>[ <i{<CR>
+
+" Use <leader>S to sort properties.  Turns this:
+"
+"     p {
+"         width: 200px;
+"         height: 100px;
+"         background: red;
+"
+"         ...
+"     }
+"
+" into this:
+
+"     p {
+"         background: red;
+"         height: 100px;
+"         width: 200px;
+"
+"         ...
+"     }
+"
+au BufNewFile,BufRead *.css  nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" Use Shift-Return to turn this:
+"     <tag>|</tag>
+"
+" into this:
+"     <tag>
+"         |
+"     </tag>
+au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
+au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
