@@ -161,6 +161,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'sjl/gundo.vim'
 " vim-scripts repos
 Bundle 'rails.vim'
 Bundle 'django.vim'
@@ -195,8 +196,11 @@ let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: li
 let g:syntastic_jsl_conf = '$HOME/.jshintrc'
 let g:syntastic_jshint_conf = '$HOME/.jshintrc'
 
-"EasyMotion
+" EasyMotion
 let g:EasyMotion_do_shade = 0
+
+" Gundo
+nnoremap <leader>g :GundoToggle<CR>
 
 " Remove search highlighting
 nnoremap <Leader><Space> :noh<CR>
@@ -231,7 +235,7 @@ nnoremap <leader>[ <i{<CR>
 "         ...
 "     }
 "
-au BufNewFile,BufRead *.css  nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+au BufNewFile,BufRead *.css  nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 " Use Shift-Return to turn this:
 "     <tag>|</tag>
