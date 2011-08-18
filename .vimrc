@@ -160,6 +160,7 @@ Bundle 'msanders/snipmate.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/nerdcommenter'
 " vim-scripts repos
 Bundle 'rails.vim'
 Bundle 'django.vim'
