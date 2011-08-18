@@ -195,6 +195,9 @@ let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: li
 let g:syntastic_jsl_conf = '$HOME/.jshintrc'
 let g:syntastic_jshint_conf = '$HOME/.jshintrc'
 
+"EasyMotion
+let g:EasyMotion_do_shade = 0
+
 " Remove search highlighting
 nnoremap <Leader><Space> :noh<CR>
 
