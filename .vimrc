@@ -159,6 +159,7 @@ Bundle 'wincent/Command-T'
 Bundle 'msanders/snipmate.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 " vim-scripts repos
 Bundle 'rails.vim'
 Bundle 'django.vim'
@@ -185,6 +186,13 @@ let g:CommandTMaxFiles=20000
 let g:CommandTMatchWindowAtTop=1
 let g:CommandTMaxHeight=12
 let g:CommandTCancelMap=['<Esc>', '<C-c>']
+
+" Syntastic
+let g:syntastic_enable_signs = 1
+let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
+let g:syntastic_jsl_conf = '$HOME/.jshintrc'
+let g:syntastic_jshint_conf = '$HOME/.jshintrc'
 
 " Remove search highlighting
 nnoremap <Leader><Space> :noh<CR>
