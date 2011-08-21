@@ -28,10 +28,16 @@ set cursorline     " highlight current line
 set scrolloff=4
 set nofoldenable
 
-set background=dark
-
-" Keep swap files in one of these 
-set directory=~/tmp,/var/tmp,/tmp,.
+" Swaps and backups
+set nobackup                           " do not keep backups after close
+set nowritebackup                      " do not keep a backup while working
+set noswapfile                         " don't keep swp files either
+set backupdir=$HOME/.vim/backup        " store backups under ~/.vim/backup
+set backupcopy=yes                     " keep attributes of original file
+set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
+set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
+set undofile
+set undoreload=10000
 
 " Let's see some useful info in the status line
 set statusline=%F\ %m%r%w%y\ %=(%L\ loc)\ [#\%03.3b\ 0x\%02.2B]\ \ %l,%v\ \ %P
