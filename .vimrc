@@ -162,6 +162,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'sjl/gundo.vim'
+Bundle 'altercation/vim-colors-solarized'
 " vim-scripts repos
 Bundle 'rails.vim'
 Bundle 'django.vim'
@@ -171,8 +172,13 @@ Bundle 'surround.vim'
 Bundle 'php.vim'
 
 filetype plugin indent on
-colorscheme desert 
 syntax enable
+
+" Solarized theme settings
+let g:solarized_termcolors=256
+set t_Co=256
+set background=dark
+colorscheme solarized 
 
 au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
 au BufRead,BufNewFile *.json set ft=json syntax=javascript
@@ -195,9 +201,6 @@ let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
 let g:syntastic_jsl_conf = '$HOME/.jshintrc'
 let g:syntastic_jshint_conf = '$HOME/.jshintrc'
-
-" EasyMotion
-let g:EasyMotion_do_shade = 0
 
 " Gundo
 nnoremap <leader>g :GundoToggle<CR>
@@ -246,3 +249,5 @@ au BufNewFile,BufRead *.css  nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>
 "     </tag>
 au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
 au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+
+nore ; :
