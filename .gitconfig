@@ -1,3 +1,5 @@
+[core]
+  editor = mvim -v
 [user]
 	email = scott.walkinshaw@gmail.com
 	name = Scott Walkinshaw
@@ -25,6 +27,7 @@
   s            = status -sb -uno --ignore-submodules=untracked
   st           = status
   sa           = status -sb --ignore-submodules=untracked
+  datetag      = !git tag `date "+%Y%m%d-%H%M"`
 
 [push]
   default = current
