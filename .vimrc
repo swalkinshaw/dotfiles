@@ -37,6 +37,7 @@ set backupcopy=yes                     " keep attributes of original file
 set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
 set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
 set undofile
+set undodir=~/.vim/undo
 set undoreload=10000
 
 " Let's see some useful info in the status line
@@ -207,6 +208,10 @@ let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
 let g:syntastic_jsl_conf = '$HOME/.jshintrc'
 let g:syntastic_jshint_conf = '$HOME/.jshintrc'
+
+" Gundo
+let g:gundo_width = 30
+let g:gundo_preview_bottom = 1
 
 " Gundo
 nnoremap <leader>g :GundoToggle<CR>
