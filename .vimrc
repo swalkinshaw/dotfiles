@@ -1,3 +1,7 @@
+" File-type
+filetype on
+filetype off
+
 " Tabs and Spaces
 set tabstop=2
 set shiftwidth=2
@@ -13,8 +17,6 @@ set number
 set ruler
 set showcmd
 set showmatch
-set wildmenu
-set wildmode=list,full
 set nowrap
 set hidden
 set modeline
@@ -28,6 +30,21 @@ set cursorline     " highlight current line
 set scrolloff=4
 set nofoldenable
 
+" Wildmenu completion {{{
+set wildmenu
+set wildmode=list:longest
+
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.luac                           " Lua byte code
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.pyc                            " Python byte code
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store?                      " OSX bullshit
+" }}}
+
 " Swaps and backups
 set nobackup                           " do not keep backups after close
 set nowritebackup                      " do not keep a backup while working
@@ -40,8 +57,36 @@ set undofile
 set undodir=~/.vim/undo
 set undoreload=10000
 
-" Let's see some useful info in the status line
-set statusline=%F\ %m%r%w%y\ %=(%L\ loc)\ [#\%03.3b\ 0x\%02.2B]\ \ %l,%v\ \ %P
+set autowrite
+
+" Status line {{{
+
+set statusline=%f    " Path.
+set statusline+=%m   " Modified flag.
+set statusline+=%r   " Readonly flag.
+set statusline+=%w   " Preview window flag.
+
+set statusline+=\    " Space.
+
+set statusline+=%#warningmsg#                " Highlight the following as a warning.
+set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+set statusline+=%*                           " Reset highlighting.
+
+set statusline+=%=   " Right align.
+
+" File format, encoding and type.  Ex: "(unix/utf-8/python)"
+set statusline+=(
+set statusline+=%{&ff}                        " Format (unix/DOS).
+set statusline+=/
+set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+set statusline+=/
+set statusline+=%{&ft}                        " Type (python).
+set statusline+=)
+
+" Line and column position and counts.
+set statusline+=\ (line\ %l\/%L,\ col\ %03c)
+
+" }}}
 
 " Better search
 set hlsearch
@@ -86,8 +131,6 @@ nnoremap Y y$
 nnoremap D d$
 
 " Keep search matches in the middle of the window.
-nnoremap * *zzzv
-nnoremap # #zzzv
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
@@ -151,10 +194,6 @@ if exists("+showtabline")
   set tabline=%!MyTabLine()
 endif
       
-" File-type
-filetype on
-filetype off
-
 set rtp+=~/.vim/bundle/vundle 
 call vundle#rc()
 
@@ -170,6 +209,8 @@ Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'sjl/gundo.vim'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'ervandew/supertab'
+Bundle 'majutsushi/tagbar'
 " vim-scripts repos
 Bundle 'rails.vim'
 Bundle 'django.vim'
@@ -216,8 +257,13 @@ let g:gundo_preview_bottom = 1
 " Gundo
 nnoremap <leader>g :GundoToggle<CR>
 
+" Tagbar
+nnoremap <leader>q :TagbarToggle<CR>
+let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+let g:tagbar_autoclose = 1
+
 " Remove search highlighting
-nnoremap <Leader><Space> :noh<CR>
+noremap <leader><space> :noh<cr>:match none<cr>:2match none<cr>:3match none<cr>
 
 " Sudo write (,W)
 noremap <leader>W :w !sudo tee %<CR>
