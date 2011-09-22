@@ -29,6 +29,7 @@ set laststatus=2   " always show status-line
 set cursorline     " highlight current line
 set scrolloff=4
 set nofoldenable
+set shell=/bin/sh
 
 " Wildmenu completion {{{
 set wildmenu
@@ -211,6 +212,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'ervandew/supertab'
 Bundle 'majutsushi/tagbar'
+Bundle 'janx/vim-rubytest'
 " vim-scripts repos
 Bundle 'rails.vim'
 Bundle 'django.vim'
@@ -243,9 +245,18 @@ let g:CommandTMatchWindowAtTop=1
 let g:CommandTMaxHeight=12
 let g:CommandTCancelMap=['<Esc>', '<C-c>']
 
+" Rubytest
+map <Leader>\ <Plug>RubyTestRun
+map <Leader>' <Plug>RubyFileRun
+map <Leader>/ <Plug>RubyTestRunLast
+let g:rubytest_cmd_test = 'ruby -I "lib:test" %p'
+let g:rubytest_cmd_testcase = 'ruby -I "lib:test" %p -n "/%c/"'
+let g:rubytest_in_quickfix = 1
+
 " Syntastic
 let g:syntastic_enable_signs = 1
-let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_auto_loc_list=1
+let g:syntastic_disabled_filetypes = ['html', 'sass']
 let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
 let g:syntastic_jsl_conf = '$HOME/.jshintrc'
 let g:syntastic_jshint_conf = '$HOME/.jshintrc'
@@ -296,6 +307,9 @@ nnoremap <leader>[ <i{<CR>
 "     }
 "
 au BufNewFile,BufRead *.css  nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" Add dashes to the list of 'word characters' for CSS files: 
+au Filetype css setlocal iskeyword+=-
 
 " Use Shift-Return to turn this:
 "     <tag>|</tag>
