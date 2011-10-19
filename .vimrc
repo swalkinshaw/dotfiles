@@ -58,6 +58,9 @@ set undofile
 set undodir=~/.vim/undo
 set undoreload=10000
 
+" Show trailing whitespace
+set list listchars=tab:→\ ,trail:·
+
 set autowrite
 
 " Status line {{{
@@ -194,8 +197,8 @@ if exists("+showtabline")
   set stal=2
   set tabline=%!MyTabLine()
 endif
-      
-set rtp+=~/.vim/bundle/vundle 
+
+set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 " github
@@ -213,6 +216,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'ervandew/supertab'
 Bundle 'majutsushi/tagbar'
 Bundle 'janx/vim-rubytest'
+Bundle 'millermedeiros/vim-statline'
 " vim-scripts repos
 Bundle 'rails.vim'
 Bundle 'django.vim'
@@ -228,7 +232,7 @@ syntax enable
 let g:solarized_termcolors=256
 set t_Co=256
 set background=dark
-colorscheme solarized 
+colorscheme solarized
 
 au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
 au BufRead,BufNewFile *.json set ft=json syntax=javascript
@@ -308,7 +312,8 @@ nnoremap <leader>[ <i{<CR>
 "
 au BufNewFile,BufRead *.css  nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
-" Add dashes to the list of 'word characters' for CSS files: 
+" Add dashes to the list of 'word characters' for CSS files:
+"
 au Filetype css setlocal iskeyword+=-
 
 " Use Shift-Return to turn this:
@@ -322,3 +327,6 @@ au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
 au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 
 nore ; :
+
+" Clean whitespace
+map <leader>s  :%s/\s\+$//<cr>:let @/=''<CR>
