@@ -198,6 +198,9 @@ if exists("+showtabline")
   set tabline=%!MyTabLine()
 endif
 
+" Required for rubyblock
+runtime macros/matchit.vim
+
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
@@ -216,7 +219,12 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'ervandew/supertab'
 Bundle 'majutsushi/tagbar'
 Bundle 'janx/vim-rubytest'
-Bundle 'millermedeiros/vim-statline'
+"Bundle 'millermedeiros/vim-statline'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'mattn/gist-vim'
+Bundle 'kana/vim-textobj-user'
+Bundle 'nelstrom/vim-textobj-rubyblock'
 " vim-scripts repos
 Bundle 'rails.vim'
 Bundle 'django.vim'
@@ -233,6 +241,9 @@ let g:solarized_termcolors=256
 set t_Co=256
 set background=dark
 colorscheme solarized
+
+" Powerline settings
+let g:Powerline_symbols = 'fancy'
 
 au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
 au BufRead,BufNewFile *.json set ft=json syntax=javascript
@@ -330,3 +341,8 @@ nore ; :
 
 " Clean whitespace
 map <leader>s  :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Easily move to start/end of line
+" Note that L is g_, not $, so it acts the same in normal and visual mode.
+noremap H ^
+noremap L g_
