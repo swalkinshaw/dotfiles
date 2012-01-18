@@ -225,8 +225,9 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'mattn/gist-vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'tpope/vim-rails'
+Bundle 'vim-scripts/buftabs'
 " vim-scripts repos
-Bundle 'rails.vim'
 Bundle 'django.vim'
 Bundle 'surround.vim'
 " non github repos
