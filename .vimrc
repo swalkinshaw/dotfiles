@@ -77,9 +77,12 @@ let mapleader = ","
 " Easy command mode switch
 inoremap jj <Esc>
 
-" Paste toggle (,p)
-set pastetoggle=<leader>p
-map <leader>p :set invpaste paste?<CR>
+" Yank to OS X pasteboard.
+noremap <leader>y "*y
+
+" Paste from OS X pasteboard without messing up indent.
+noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
 
 " Fix backspace key in xterm
 " inoremap <BS>
@@ -147,9 +150,9 @@ call vundle#rc()
 " github
 Bundle 'gmarik/vundle'
 Bundle 'mattn/zencoding-vim'
-Bundle 'wincent/Command-T'
-Bundle 'msanders/snipmate.vim'
+Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
@@ -166,9 +169,9 @@ Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-scripts/buftabs'
 Bundle 'gregsexton/gitv'
+Bundle 'kana/vim-smartinput'
 " vim-scripts repos
 Bundle 'django.vim'
-Bundle 'surround.vim'
 " non github repos
 " Syntax
 Bundle 'php.vim'
@@ -190,6 +193,9 @@ au BufRead,BufNewFile *.json set ft=json syntax=javascript
 au BufRead,BufNewFile *.html.twig set ft=htmldjango
 " automatically jump to last known position in a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+" automatically reload vimrc when it's saved
+au BufWritePost .vimrc so ~/.vimrc
 
 map <Leader>n :NERDTreeToggle<CR>
 map <Leader>c :CommandT<CR>
@@ -286,3 +292,5 @@ map <leader>s  :%s/\s\+$//<cr>:let @/=''<CR>
 " Note that L is g_, not $, so it acts the same in normal and visual mode.
 noremap H ^
 noremap L g_
+
+command! -bar -range=% NotRocket :<line1>,<line2>s/:\(\w\+\)\s*=>/\1:/ge
