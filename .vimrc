@@ -190,7 +190,8 @@ let g:Powerline_symbols = 'fancy'
 
 au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
 au BufRead,BufNewFile *.json set ft=json syntax=javascript
-au BufRead,BufNewFile *.html.twig set ft=htmldjango
+au BufRead,BufNewFile *.twig set ft=htmldjango
+au BufRead,BufNewFile *.rabl set ft=ruby
 " automatically jump to last known position in a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 

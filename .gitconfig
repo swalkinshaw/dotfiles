@@ -1,5 +1,6 @@
 [core]
   editor = mvim -v
+	excludesfile = ~/.gitignore
 [user]
 	email = scott.walkinshaw@gmail.com
 	name = Scott Walkinshaw
@@ -51,3 +52,7 @@
   added = yellow
   changed = green bold
   untracked = blue bold
+[github]
+	user = swalkinshaw
+[web]
+	browser = open
