@@ -44,6 +44,7 @@ set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store?                      " OSX bullshit
+set wildignore+=*vendor/bundle/*,public/assets/* " Rails specific
 " }}}
 
 " Swaps and backups
@@ -170,6 +171,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'vim-scripts/buftabs'
 Bundle 'gregsexton/gitv'
 Bundle 'kana/vim-smartinput'
+Bundle 'nono/vim-handlebars'
 " vim-scripts repos
 Bundle 'django.vim'
 " non github repos
@@ -199,13 +201,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 au BufWritePost .vimrc so ~/.vimrc
 
 map <Leader>n :NERDTreeToggle<CR>
-map <Leader>c :CommandT<CR>
-
-" Command-T
-let g:CommandTMaxFiles=20000
-let g:CommandTMatchWindowAtTop=1
-let g:CommandTMaxHeight=12
-let g:CommandTCancelMap=['<Esc>', '<C-c>']
 
 " Rubytest
 map <Leader>\ <Plug>RubyTestRun
