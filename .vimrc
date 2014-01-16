@@ -29,7 +29,7 @@ set laststatus=2   " always show status-line
 set cursorline     " highlight current line
 set scrolloff=4
 set nofoldenable
-set shell=/bin/sh
+set shell=/bin/zsh
 
 " Wildmenu completion {{{
 set wildmenu
@@ -45,6 +45,8 @@ set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store?                      " OSX bullshit
 set wildignore+=*vendor/bundle/*,public/assets/* " Rails specific
+set wildignore+=*node_modules/*                  " npm modules
+set wildignore+=*target/*,resources/public/*     " clojure projects
 " }}}
 
 " Swaps and backups
@@ -54,9 +56,10 @@ set noswapfile                         " don't keep swp files either
 set backupdir=$HOME/.vim/backup        " store backups under ~/.vim/backup
 set backupcopy=yes                     " keep attributes of original file
 set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
-set directory=~/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
+set directory=$HOME/.vim/swap,~/tmp,.      " keep swp files under ~/.vim/swap
 set undofile
-set undodir=~/.vim/undo
+set undodir=$HOME/.vim/undo
+set undolevels=1000
 set undoreload=10000
 
 " Show trailing whitespace
@@ -172,10 +175,11 @@ Bundle 'vim-scripts/buftabs'
 Bundle 'gregsexton/gitv'
 Bundle 'kana/vim-smartinput'
 Bundle 'nono/vim-handlebars'
+Bundle 'guns/vim-clojure-static'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'groenewege/vim-less'
 " vim-scripts repos
 Bundle 'django.vim'
-" non github repos
-" Syntax
 Bundle 'php.vim'
 
 filetype plugin indent on
@@ -212,8 +216,10 @@ let g:rubytest_in_quickfix = 1
 
 " Syntastic
 let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_disabled_filetypes = ['html', 'sass']
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_mode_map = { 'mode': 'active',
+                               \ 'active_filetypes': [],
+                               \ 'passive_filetypes': ['html', 'sass', 'hbs'] }
 let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
 let g:syntastic_jsl_conf = '$HOME/.jshintrc'
 let g:syntastic_jshint_conf = '$HOME/.jshintrc'
@@ -237,7 +243,7 @@ noremap <leader><space> :noh<cr>:match none<cr>:2match none<cr>:3match none<cr>
 noremap <leader>W :w !sudo tee %<CR>
 
 " Remap :W to :w
-command W w
+command! W w
 
 " Indent/unident block (,]) (,[)
 nnoremap <leader>] >i{<CR>
@@ -266,8 +272,10 @@ nnoremap <leader>[ <i{<CR>
 au BufNewFile,BufRead *.css  nnoremap <buffer> <leader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 " Add dashes to the list of 'word characters' for CSS files:
-"
 au Filetype css setlocal iskeyword+=-
+
+" Remove slashes from list of 'word characters':
+setlocal iskeyword-=/\/
 
 " Use Shift-Return to turn this:
 "     <tag>|</tag>
@@ -290,3 +298,9 @@ noremap H ^
 noremap L g_
 
 command! -bar -range=% NotRocket :<line1>,<line2>s/:\(\w\+\)\s*=>/\1:/ge
+
+" Clojure settings
+au VimEnter clj RainbowParenthesesToggle
+au Syntax clj RainbowParenthesesLoadRound
+au Syntax clj RainbowParenthesesLoadSquare
+au Syntax clj RainbowParenthesesLoadBraces
