@@ -45,6 +45,7 @@ set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store?                      " OSX bullshit
 set wildignore+=*vendor/bundle/*,public/assets/* " Rails specific
+set wildignore+=*coverage/**                     " Rails specific
 set wildignore+=*node_modules/*                  " npm modules
 set wildignore+=*target/*,resources/public/*     " clojure projects
 " }}}
@@ -84,6 +85,9 @@ inoremap jj <Esc>
 " Yank to OS X pasteboard.
 noremap <leader>y "*y
 
+" Get rid of Ex-mode map
+nnoremap Q <nop>
+
 " Paste from OS X pasteboard without messing up indent.
 noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
 noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
@@ -92,7 +96,6 @@ noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
 " inoremap <BS>
 
 inoremap <C-l> <C-x><C-l>
-
 inoremap <C-f> function () {}<Left>
 
 " Enable mouse in insert and normal mode
@@ -153,7 +156,6 @@ call vundle#rc()
 
 " github
 Bundle 'gmarik/vundle'
-Bundle 'mattn/zencoding-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
@@ -164,9 +166,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'ervandew/supertab'
 Bundle 'majutsushi/tagbar'
-Bundle 'janx/vim-rubytest'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'mattn/gist-vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
@@ -175,9 +175,8 @@ Bundle 'vim-scripts/buftabs'
 Bundle 'gregsexton/gitv'
 Bundle 'kana/vim-smartinput'
 Bundle 'nono/vim-handlebars'
-Bundle 'guns/vim-clojure-static'
-Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'groenewege/vim-less'
+Bundle 'chase/vim-ansible-yaml'
 " vim-scripts repos
 Bundle 'django.vim'
 Bundle 'php.vim'
@@ -197,7 +196,9 @@ let g:Powerline_symbols = 'fancy'
 au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
 au BufRead,BufNewFile *.json set ft=json syntax=javascript
 au BufRead,BufNewFile *.twig set ft=htmldjango
+au BufRead,BufNewFile *.j2 set ft=htmldjango
 au BufRead,BufNewFile *.rabl set ft=ruby
+au BufRead,BufNewFile *.cljx set ft=clojure
 " automatically jump to last known position in a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
@@ -205,14 +206,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 au BufWritePost .vimrc so ~/.vimrc
 
 map <Leader>n :NERDTreeToggle<CR>
-
-" Rubytest
-map <Leader>\ <Plug>RubyTestRun
-map <Leader>' <Plug>RubyFileRun
-map <Leader>/ <Plug>RubyTestRunLast
-let g:rubytest_cmd_test = 'ruby -I "lib:test" %p'
-let g:rubytest_cmd_testcase = 'ruby -I "lib:test" %p -n "/%c/"'
-let g:rubytest_in_quickfix = 1
 
 " Syntastic
 let g:syntastic_enable_signs = 1
