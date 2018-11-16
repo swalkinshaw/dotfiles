@@ -45,9 +45,9 @@ set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store?                      " OSX bullshit
 set wildignore+=*vendor/bundle/*,public/assets/* " Rails specific
+set wildignore+=*tmp/**                          " tmp dir
 set wildignore+=*coverage/**                     " Rails specific
 set wildignore+=*node_modules/*                  " npm modules
-set wildignore+=*target/*,resources/public/*     " clojure projects
 " }}}
 
 " Swaps and backups
@@ -99,7 +99,7 @@ inoremap <C-l> <C-x><C-l>
 inoremap <C-f> function () {}<Left>
 
 " Enable mouse in insert and normal mode
-" set mouse=vin
+"set mouse=n
 
 " Create an empty line underneath without moving the cursor
 noremap <CR> mlo<Esc>`l
@@ -151,35 +151,41 @@ set wmh=0
 " Required for rubyblock
 runtime macros/matchit.vim
 
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
 
 " github
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'sjl/gundo.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'ervandew/supertab'
-Bundle 'majutsushi/tagbar'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'mattn/gist-vim'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'tpope/vim-rails'
-Bundle 'vim-scripts/buftabs'
-Bundle 'gregsexton/gitv'
-Bundle 'kana/vim-smartinput'
-Bundle 'nono/vim-handlebars'
-Bundle 'groenewege/vim-less'
-Bundle 'chase/vim-ansible-yaml'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'sjl/gundo.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'ervandew/supertab'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'tpope/vim-rails'
+Plugin 'vim-scripts/buftabs'
+Plugin 'gregsexton/gitv'
+Plugin 'kana/vim-smartinput'
+Plugin 'nono/vim-handlebars'
+Plugin 'groenewege/vim-less'
+Plugin 'chase/vim-ansible-yaml'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'janko-m/vim-test'
+Plugin 'jparise/vim-graphql'
+Plugin 'bogado/file-line'
+Plugin 'rhysd/vim-crystal'
+Plugin 'tpope/vim-markdown'
 " vim-scripts repos
-Bundle 'django.vim'
-Bundle 'php.vim'
+Plugin 'django.vim'
+Plugin 'php.vim'
+call vundle#end()
 
 filetype plugin indent on
 syntax enable
@@ -197,8 +203,6 @@ au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
 au BufRead,BufNewFile *.json set ft=json syntax=javascript
 au BufRead,BufNewFile *.twig set ft=htmldjango
 au BufRead,BufNewFile *.j2 set ft=htmldjango
-au BufRead,BufNewFile *.rabl set ft=ruby
-au BufRead,BufNewFile *.cljx set ft=clojure
 " automatically jump to last known position in a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
@@ -292,8 +296,41 @@ noremap L g_
 
 command! -bar -range=% NotRocket :<line1>,<line2>s/:\(\w\+\)\s*=>/\1:/ge
 
-" Clojure settings
-au VimEnter clj RainbowParenthesesToggle
-au Syntax clj RainbowParenthesesLoadRound
-au Syntax clj RainbowParenthesesLoadSquare
-au Syntax clj RainbowParenthesesLoadBraces
+" Ruby test
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>v :TestVisit<CR>
+
+" http://stackoverflow.com/questions/16902317/vim-slow-with-ruby-syntax-highlighting
+set re=1
+set ttyfast
+set lazyredraw
+
+" ctrlp
+let g:ctrlp_max_files = 0
+let g:ctrlp_max_depth = 40
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" use minitest in graphql-ruby for _spec files
+autocmd BufNewFile,BufRead ~/dev/graphql-ruby/spec/* let test#ruby#minitest#file_pattern = '_spec\.rb'
+
+" use dev in shopify
+"autocmd BufNewFile,BufRead ~/dev/shopify/* let test#ruby#minitest#executable = 'dev test'
+
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'javascript']
+
+" show vertical ruler
+set colorcolumn=120

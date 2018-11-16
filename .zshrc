@@ -12,10 +12,13 @@ fi
 
 # Customize to your needs...
 #
-export PATH="$HOME/.rbenv/bin:$PATH"
 
-eval "$(rbenv init -)"
-
-alias vim="mvim -v"
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
+alias gln='git log --name-only --pretty="" origin..HEAD'
+alias conflicts='git diff --name-only --diff-filter=U'
+
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+
+export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="/usr/local/bin:${PATH}"
