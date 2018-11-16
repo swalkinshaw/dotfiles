@@ -327,9 +327,6 @@ endif
 " use minitest in graphql-ruby for _spec files
 autocmd BufNewFile,BufRead ~/dev/graphql-ruby/spec/* let test#ruby#minitest#file_pattern = '_spec\.rb'
 
-" use dev in shopify
-"autocmd BufNewFile,BufRead ~/dev/shopify/* let test#ruby#minitest#executable = 'dev test'
-
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'javascript']
 
 " show vertical ruler
