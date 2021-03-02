@@ -151,40 +151,38 @@ set wmh=0
 " Required for rubyblock
 runtime macros/matchit.vim
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 " github
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rhubarb'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'ervandew/supertab'
-Plugin 'Lokaltog/vim-powerline'
-Plugin 'tpope/vim-rails'
-Plugin 'vim-scripts/buftabs'
-Plugin 'kana/vim-smartinput'
-Plugin 'chase/vim-ansible-yaml'
-Plugin 'janko-m/vim-test'
-Plugin 'jparise/vim-graphql'
-Plugin 'bogado/file-line'
-Plugin 'rhysd/vim-crystal'
-Plugin 'tpope/vim-markdown'
-Plugin 'w0rp/ale'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'tpope/vim-abolish'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'kana/vim-textobj-user'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-" vim-scripts repos
-Plugin 'django.vim'
-call vundle#end()
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ervandew/supertab'
+Plug 'Lokaltog/vim-powerline'
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'vim-scripts/buftabs'
+Plug 'kana/vim-smartinput'
+Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
+Plug 'janko-m/vim-test'
+Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+Plug 'bogado/file-line'
+Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'w0rp/ale'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'tpope/vim-abolish'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
+
+" Initialize plugin system
+call plug#end()
 
 filetype plugin indent on
 syntax enable
