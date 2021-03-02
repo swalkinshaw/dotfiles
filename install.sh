@@ -6,6 +6,7 @@ ln -sf ~/dotfiles/.gitignore ~/.gitignore
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim -E -s +PlugInstall +visual +qall
 
 if [ $SPIN ]; then
   if ! command -v rg &> /dev/null; then
