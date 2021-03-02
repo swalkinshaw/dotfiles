@@ -12,10 +12,6 @@ if [ $SPIN ]; then
     sudo apt-get install -y ripgrep
   fi
 
-  if ! command -v fd &> /dev/null; then
-    sudo apt-get install -y fd
-  fi
-
   if ! command -v fzf &> /dev/null; then
     sudo apt-get install -y fzf
   fi
