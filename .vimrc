@@ -156,35 +156,34 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " github
-Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'sjl/gundo.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'ervandew/supertab'
 Plugin 'Lokaltog/vim-powerline'
-Plugin 'kana/vim-textobj-user'
-Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'tpope/vim-rails'
 Plugin 'vim-scripts/buftabs'
-Plugin 'gregsexton/gitv'
 Plugin 'kana/vim-smartinput'
-Plugin 'nono/vim-handlebars'
-Plugin 'groenewege/vim-less'
 Plugin 'chase/vim-ansible-yaml'
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'janko-m/vim-test'
 Plugin 'jparise/vim-graphql'
 Plugin 'bogado/file-line'
 Plugin 'rhysd/vim-crystal'
 Plugin 'tpope/vim-markdown'
+Plugin 'w0rp/ale'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'tpope/vim-abolish'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
 " vim-scripts repos
 Plugin 'django.vim'
-Plugin 'php.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -210,16 +209,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 au BufWritePost .vimrc so ~/.vimrc
 
 map <Leader>n :NERDTreeToggle<CR>
-
-" Syntastic
-let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_mode_map = { 'mode': 'active',
-                               \ 'active_filetypes': [],
-                               \ 'passive_filetypes': ['html', 'sass', 'hbs'] }
-let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
-let g:syntastic_jsl_conf = '$HOME/.jshintrc'
-let g:syntastic_jshint_conf = '$HOME/.jshintrc'
 
 " Gundo
 let g:gundo_width = 30
@@ -274,16 +263,6 @@ au Filetype css setlocal iskeyword+=-
 " Remove slashes from list of 'word characters':
 setlocal iskeyword-=/\/
 
-" Use Shift-Return to turn this:
-"     <tag>|</tag>
-"
-" into this:
-"     <tag>
-"         |
-"     </tag>
-au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
-au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
-
 nore ; :
 
 " Clean whitespace
@@ -312,15 +291,9 @@ set lazyredraw
 let g:ctrlp_max_files = 0
 let g:ctrlp_max_depth = 40
 
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
   let g:ctrlp_use_caching = 0
 endif
 
@@ -331,3 +304,53 @@ let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'javascr
 
 " show vertical ruler
 set colorcolumn=120
+
+autocmd FileType gitcommit setlocal spell
+
+function! GalaxyUrl(opts, ...) abort
+  if a:0 || type(a:opts) != type({})
+    return ''
+  endif
+
+  let remote = matchlist(a:opts.remote, '\v^galaxy::(.{-1,})(\.git)?$')
+  if empty(remote)
+    return ''
+  end
+
+  let opts = copy(a:opts)
+  let opts.remote = "https://github.com/" . remote[1] . ".git"
+  return call("rhubarb#FugitiveUrl", [opts])
+endfunction
+
+if !exists('g:fugitive_browse_handlers')
+  let g:fugitive_browse_handlers = []
+endif
+
+if index(g:fugitive_browse_handlers, function('GalaxyUrl')) < 0
+  call insert(g:fugitive_browse_handlers, function('GalaxyUrl'))
+endif
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+
+" ale
+let g:ale_linters = {'ruby': ['rubocop']}
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_fixers = {'ruby': ['rubocop']}
+nmap <silent> <leader>f :ALEFix<CR>
+
+" splitjoin
+let g:splitjoin_ruby_hanging_args = 0
+let g:splitjoin_ruby_curly_braces = 0
+let g:splitjoin_ruby_trailing_comma = 1
+
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!*.js.map" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+nnoremap <silent> <C-p> :GFiles<cr>
+
+autocmd FileType ruby syn match sorbetSignature "\<sig\>" nextgroup=sorbetSignatureDeclaration skipwhite skipnl
+autocmd FileType ruby syn region sorbetSignatureBlock start="sig {" end="}"
+autocmd FileType ruby syn region sorbetSignatureBlock start="\<sig\> \<do\>" matchgroup=sorbetSignature end="\<end\>"
+autocmd FileType ruby hi def link sorbetSignature Comment
+autocmd FileType ruby hi def link sorbetSignatureBlock Comment
+
+"nerdcommenter
+let g:NERDDefaultAlign = 'left'
+let g:NERDSpaceDelims = 1
