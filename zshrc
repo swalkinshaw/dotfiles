@@ -17,3 +17,8 @@ alias conflicts='git diff --name-only --diff-filter=U'
 
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/bin:${PATH}"
+
+export HISTFILE="$HOME/.zhistory"
+
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export PURE_GIT_UNTRACKED_DIRTY=0
