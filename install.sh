@@ -1,7 +1,9 @@
-for FILE in irbrc gitignore gitconfig vimrc
+for FILE in irbrc gitignore gitconfig vimrc tmux.conf
 do
   ln -s ~/dotfiles/$FILE ~/.$FILE
 done
+
+tmux source-file ~/.tmux.conf
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim -es -u ~/.vimrc -i NONE -c "PlugInstall" -c "qa"
