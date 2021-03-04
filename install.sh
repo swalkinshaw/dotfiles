@@ -1,10 +1,10 @@
-ln -sf ~/dotfiles/.irbrc ~/.irbrc
-ln -sf ~/dotfiles/.gitignore ~/.gitignore
-ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+for FILE in irbrc gitignore gitconfig vimrc
+do
+  ln -s ~/dotfiles/$FILE ~/.$FILE
+done
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-ln -sf ~/dotfiles/.vimrc ~/.vimrc
-vim +'PlugInstall --sync' +qa
+vim -es -u ~/.vimrc -i NONE -c "PlugInstall" -c "qa"
 
 if [ $SPIN ]; then
   if ! command -v rg &> /dev/null; then
@@ -18,5 +18,7 @@ fi
 
 zsh && git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/.zpreztorc ~/.zpreztorc
+ln -sf ~/dotfiles/zshrc ~/.zshrc
+ln -sf ~/dotfiles/zpreztorc ~/.zpreztorc
+
+exit 0
