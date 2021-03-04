@@ -16,6 +16,10 @@ if [ $SPIN ]; then
   if ! command -v fzf &> /dev/null; then
     sudo apt-get install -y fzf
   fi
+
+  echo "StreamLocalBindUnlink yes" | sudo tee -a /etc/ssh/sshd_config
+  sudo service ssh restart
+  rm -rf ~/.gnupg/S*
 fi
 
 zsh && git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
