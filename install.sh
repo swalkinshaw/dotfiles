@@ -13,6 +13,10 @@ if [ $SPIN ]; then
     sudo apt-get install -y ripgrep
   fi
 
+  if ! command -v fd &> /dev/null; then
+    sudo apt-get install fd-find
+  fi
+
   echo "StreamLocalBindUnlink yes" | sudo tee -a /etc/ssh/sshd_config
   sudo service ssh restart
   rm -rf ~/.gnupg/S*
