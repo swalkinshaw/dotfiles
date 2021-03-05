@@ -22,7 +22,7 @@ if [ $SPIN ]; then
   rm -rf ~/.gnupg/S*
 fi
 
-zsh && git clone https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+zsh && git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
 ln -sf ~/dotfiles/zshrc ~/.zshrc
 ln -sf ~/dotfiles/zpreztorc ~/.zpreztorc
