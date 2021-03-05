@@ -15,6 +15,7 @@ if [ $SPIN ]; then
 
   if ! command -v fd &> /dev/null; then
     sudo apt-get install fd-find
+    ln -s $(which fdfind) ~/.local/bin/fd
   fi
 
   echo "StreamLocalBindUnlink yes" | sudo tee -a /etc/ssh/sshd_config
