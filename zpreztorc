@@ -114,11 +114,3 @@ zstyle ':prezto:module:ssh-agent' identities 'id_rsa'
 
 # Auto set the tab and window titles.
 zstyle ':prezto:module:terminal' auto-title 'yes'
-
-#
-# Tmux
-#
-
-# Auto start a session when Zsh is launched.
-# zstyle ':prezto:module:tmux' auto-start 'yes'
-
