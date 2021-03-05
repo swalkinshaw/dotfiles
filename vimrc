@@ -173,7 +173,7 @@ Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'w0rp/ale'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'tpope/vim-abolish'
