@@ -340,8 +340,14 @@ let g:splitjoin_ruby_hanging_args = 0
 let g:splitjoin_ruby_curly_braces = 0
 let g:splitjoin_ruby_trailing_comma = 1
 
+" fzf
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!*.js.map" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+" use Git files for ctrl-p fuzzy finding to exclude git ignored files
 nnoremap <silent> <C-p> :GFiles<cr>
+
+" find current word in project using fzf
+nnoremap <silent> <C-Space> yiw:Rg <C-r>"<CR>
+vnoremap <silent> <C-Space> y:Rg <C-r>"<CR>
 
 autocmd FileType ruby syn match sorbetSignature "\<sig\>" nextgroup=sorbetSignatureDeclaration skipwhite skipnl
 autocmd FileType ruby syn region sorbetSignatureBlock start="sig {" end="}"

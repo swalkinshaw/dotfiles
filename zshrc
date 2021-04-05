@@ -9,6 +9,8 @@ fi
 # Customize to your needs...
 #
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
 alias conflicts='git diff --name-only --diff-filter=U'
