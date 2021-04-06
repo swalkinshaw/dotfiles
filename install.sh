@@ -15,7 +15,7 @@ if [ $SPIN ]; then
 
   if ! command -v fd &> /dev/null; then
     sudo apt-get install fd-find
-    ln -s $(which fdfind) ~/.local/bin/fd
+    ln -s $(which fdfind) /usr/local/bin/fd
   fi
 
   if ! command -v fzf &> /dev/null; then
