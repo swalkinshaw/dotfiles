@@ -18,6 +18,12 @@ if [ $SPIN ]; then
     ln -s $(which fdfind) ~/.local/bin/fd
   fi
 
+  if ! command -v fzf &> /dev/null; then
+    sudo apt-get install fzf
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh
+  fi
+
   echo "StreamLocalBindUnlink yes" | sudo tee -a /etc/ssh/sshd_config
   sudo service ssh restart
   rm -rf ~/.gnupg/S*
