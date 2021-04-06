@@ -6,7 +6,7 @@ done
 tmux source-file ~/.tmux.conf
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim -es -u ~/.vimrc -i NONE -c "PlugInstall" -c "qa"
+vim +'PlugInstall --sync' +qa
 
 if [ $SPIN ]; then
   if ! command -v rg &> /dev/null; then
