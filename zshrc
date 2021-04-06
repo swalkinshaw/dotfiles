@@ -24,3 +24,9 @@ export HISTFILE="$HOME/.zhistory"
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export PURE_GIT_UNTRACKED_DIRTY=0
+
+# tmux by default
+if [ -z "$TMUX" ] && [ -n "$SSH_TTY" ] && [[ $- =~ i ]]; then
+    tmux -CC attach-session || tmux -CC new-session
+    exit
+fi
