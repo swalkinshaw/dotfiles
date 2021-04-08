@@ -9,7 +9,10 @@ fi
 # Customize to your needs...
 #
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ $SPIN ]; then
+  [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+  [ -f /usr/share/doc/fzf/examples/completions.zsh ] && source /usr/share/doc/fzf/examples/completions.zsh
+fi
 
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
@@ -27,6 +30,6 @@ export PURE_GIT_UNTRACKED_DIRTY=0
 
 # tmux by default
 if [ -z "$TMUX" ] && [ -n "$SSH_TTY" ] && [[ $- =~ i ]]; then
-    tmux -CC attach-session || tmux -CC new-session
-    exit
+  tmux -CC attach-session || tmux -CC new-session
+  exit
 fi
