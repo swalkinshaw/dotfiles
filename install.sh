@@ -7,6 +7,7 @@ tmux source-file ~/.tmux.conf
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +'PlugInstall --sync' +qa
+mkdir -p $HOME/.vim/undo
 
 if [ $SPIN ]; then
   if ! command -v rg &> /dev/null; then
