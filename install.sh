@@ -5,8 +5,6 @@ do
   ln -sf ~/dotfiles/$FILE ~/.$FILE
 done
 
-tmux source-file ~/.tmux.conf
-
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -14,6 +12,8 @@ vim +'PlugInstall --sync' +qa
 mkdir -p $HOME/.vim/undo
 
 if [ $SPIN ]; then
+  tmux -CC new-session
+
   if ! command -v rg &> /dev/null; then
     sudo apt-get install -y -o DPkg::Lock::Timeout=600 ripgrep
   fi
