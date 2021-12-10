@@ -18,7 +18,7 @@ if [ $SPIN ]; then
 
   if ! command -v fd &> /dev/null; then
     sudo apt-get install -o DPkg::Lock::Timeout=600 fd-find
-    sudo ln -s $(which fdfind) /usr/local/bin/fd
+    sudo ln -sf $(which fdfind) /usr/local/bin/fd
   fi
 
   if ! command -v fzf &> /dev/null; then
