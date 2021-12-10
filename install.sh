@@ -8,6 +8,8 @@ done
 tmux source-file ~/.tmux.conf
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 vim +'PlugInstall --sync' +qa
 mkdir -p $HOME/.vim/undo
 
@@ -37,6 +39,6 @@ fi
 ln -sf ~/dotfiles/zshrc ~/.zshrc
 ln -sf ~/dotfiles/zpreztorc ~/.zpreztorc
 
-source ~/.zshrc
+zsh && source ~/.zshrc
 
 exit 0
