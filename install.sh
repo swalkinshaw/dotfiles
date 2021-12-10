@@ -46,6 +46,6 @@ fi
 ln -sf ~/dotfiles/zshrc ~/.zshrc
 ln -sf ~/dotfiles/zpreztorc ~/.zpreztorc
 
-zsh && source ~/.zshrc
+source $HOME/.zshrc
 
 exit 0
