@@ -30,7 +30,9 @@ if [ $SPIN ]; then
   rm -rf ~/.gnupg/S*
 fi
 
-zsh && git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
+  zsh && git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+fi
 
 ln -sf ~/dotfiles/zshrc ~/.zshrc
 ln -sf ~/dotfiles/zpreztorc ~/.zpreztorc
