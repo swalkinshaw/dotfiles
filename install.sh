@@ -5,9 +5,8 @@ do
   ln -sf $HOME/dotfiles/$FILE $HOME/.$FILE
 done
 
-curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+# curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 mkdir -p $HOME/.vim/undo
 
 if [ $SPIN ]; then
@@ -37,7 +36,5 @@ fi
 
 ln -sf $HOME/dotfiles/zshrc $HOME/.zshrc
 ln -sf $HOME/dotfiles/zpreztorc $HOME/.zpreztorc
-
-source $HOME/.zshrc
 
 exit 0
