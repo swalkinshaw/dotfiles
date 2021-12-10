@@ -27,7 +27,7 @@ if [ $SPIN ]; then
   if command -v nvim &> /dev/null; then
     mkdir -p $HOME/.config/nvim
     ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
-    vim +'PlugInstall --sync' +qa
+    nvim --headless +PlugInstall +qall
   fi
 fi
 
