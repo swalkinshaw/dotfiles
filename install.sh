@@ -30,6 +30,13 @@ if [ $SPIN ]; then
   echo "StreamLocalBindUnlink yes" | sudo tee -a /etc/ssh/sshd_config
   sudo service ssh restart
   rm -rf ~/.gnupg/S*
+
+
+  if command -v nvim &> /dev/null; then
+    mkdir -p $HOME/.config/nvim
+    ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+    vim +'PlugInstall --sync' +qa
+  fi
 fi
 
 if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
