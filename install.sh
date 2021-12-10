@@ -11,8 +11,6 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 mkdir -p $HOME/.vim/undo
 
 if [ $SPIN ]; then
-  tmux -CC new-session
-
   if ! command -v rg &> /dev/null; then
     sudo apt-get install -y -o DPkg::Lock::Timeout=600 ripgrep
   fi
