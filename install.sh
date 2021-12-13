@@ -5,8 +5,8 @@ do
   ln -sf $HOME/dotfiles/$FILE $HOME/.$FILE
 done
 
-# curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 mkdir -p $HOME/.vim/undo
 
 if [ $SPIN ]; then
@@ -25,8 +25,8 @@ if [ $SPIN ]; then
 
   if command -v nvim &> /dev/null; then
     mkdir -p $HOME/.config/nvim
-    # ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
-    # nvim --headless +PlugInstall +qall
+    ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+    nvim --headless +PlugInstall +qall
   fi
 fi
 
