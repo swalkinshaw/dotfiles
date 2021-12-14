@@ -6,6 +6,7 @@
 [user]
   name = Scott Walkinshaw
   email = scott.walkinshaw@gmail.com
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAvJjIKwSSzk0PPI8XgW/EATK20PBSvrFpOgdoOCZCv4
 [core]
   editor = vim
   commitGraph = true
@@ -22,3 +23,9 @@
   fixup = !git commit --fixup=HEAD && git rebase --interactive --autosquash origin/master && :
 [pull]
   rebase = false
+[commit]
+  gpgsign = true
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  allowedSignersFile = /Users/scottwalkinshaw/.config/git/allowed_signers
