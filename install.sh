@@ -1,9 +1,17 @@
 set -ex
 
+if [ $SPIN ]; then
+  DOTFILES_PATH=$HOME/dotfiles
+else
+  DOTFILES_PATH=$HOME/dev/dotfiles
+fi
+
 for FILE in irbrc gitignore gitconfig vimrc tmux.conf
 do
-  ln -sf $HOME/dotfiles/$FILE $HOME/.$FILE
+  ln -sf $DOTFILES_PATH/$FILE $HOME/.$FILE
 done
+
+tmux source-file ~/.tmux.conf
 
 curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -25,7 +33,7 @@ if [ $SPIN ]; then
 
   if command -v nvim &> /dev/null; then
     mkdir -p $HOME/.config/nvim
-    ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
+    ln -sf $DOTFILES_PATH/init.vim $HOME/.config/nvim/init.vim
     nvim --headless +PlugInstall +qall
   fi
 fi
@@ -34,7 +42,7 @@ if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   zsh && git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 fi
 
-ln -sf $HOME/dotfiles/zshrc $HOME/.zshrc
-ln -sf $HOME/dotfiles/zpreztorc $HOME/.zpreztorc
+ln -sf $DOTFILES_PATH/zshrc $HOME/.zshrc
+ln -sf $DOTFILES_PATH/zpreztorc $HOME/.zpreztorc
 
 exit 0
